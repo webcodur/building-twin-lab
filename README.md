@@ -10,7 +10,7 @@ AI 건물 에너지 운영 플랫폼에 붙일 웹 3D 화면을 미리 만들어
 
 `three 0.187` · `Vite 8` · `TypeScript 7` · 프레임워크 없음 · 모든 데이터는 가상 데이터
 
-[실험 다섯 가지](#실험-다섯-가지) · [시작하기](#시작하기) · [연구 노트](docs/01-threejs-webgl-notes.md) · [PoC 아이디어](docs/02-poc-ideas.md)
+**[▶ 라이브 데모](https://webcodur.github.io/building-twin-lab/)** · [실험 다섯 가지](#실험-다섯-가지) · [시작하기](#시작하기) · [연구 노트](docs/01-threejs-webgl-notes.md) · [PoC 아이디어](docs/02-poc-ideas.md)
 
 </div>
 
@@ -80,6 +80,7 @@ pnpm dev          # http://localhost:5180
 |---|---|
 | `pnpm dev` | 개발 서버(5180) |
 | `pnpm build` | 타입 검사 + 프로덕션 빌드(`dist/`) |
+| `git push` (main) | GitHub Actions가 빌드해 GitHub Pages에 배포합니다 |
 | `pnpm capture` | 개발 서버를 띄운 상태에서 실험별 조작을 재현해 `media/screens/`를 다시 찍고 콘솔 오류를 보고합니다 |
 | `node scripts/record.mjs` | 실험별 동작 영상을 녹화합니다(소개 영상 재료) |
 | `npx tsx scripts/sim-check.mts` | 브라우저 없이 시뮬레이션 지표를 출력합니다 |
