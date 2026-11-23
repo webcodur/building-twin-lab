@@ -106,7 +106,40 @@
 - `scripts/record.mjs`는 같은 방식으로 동작 영상을 녹화한다. README 소개 영상의 재료다.
 - 시뮬레이션 지표는 `npx tsx scripts/sim-check.mts`로 브라우저 없이 확인한다.
 
-## 13. 다음에 시도할 기술
+## 13. IFC(BIM) 읽기 — web-ifc
+
+`src/labs/ifc.ts`, `src/data/ifc-writer.ts`, `scripts/ifc-check.mts`가 근거다. web-ifc 0.0.80 기준이다.
+
+| 단계 | 방법 | 함정 |
+|---|---|---|
+| 엔진 준비 | `new IfcAPI()` → `Init(() => wasmUrl, true)` | 다중 스레드 WASM은 `SharedArrayBuffer`, 즉 COOP·COEP 헤더가 필요하다. GitHub Pages는 그 헤더를 줄 수 없어 단일 스레드(`true`)로 강제한다. wasm 경로는 Vite `?url` import로 받는다 |
+| 열기 | `OpenModel(bytes, { COORDINATE_TO_ORIGIN: true })` | 실제 모델은 측지 좌표가 커서 float32 떨림이 생긴다. 원점 이동 옵션을 켠다 |
+| 형상 | `StreamAllMeshes` → `PlacedGeometry`마다 `GetGeometry` → `GetVertexArray`·`GetIndexArray` | 정점은 `[x,y,z,nx,ny,nz]` 교차 배열이고 WASM 메모리를 가리키는 뷰다. **즉시 복사**하고 `geometry.delete()`를 부른다. `flatTransformation`(4×4)을 적용한다. 결과는 이미 Y-up이다 |
+| 공간 | `StreamAllMeshesWithTypes(model, [IFCSPACE], cb)` | **IfcSpace는 기본 스트림에서 빠진다.** 존 시각화의 핵심이므로 따로 받는다 |
+| 종류 | `GetNameFromTypeCode(GetLineType(model, id))` | `IfcWall`처럼 대소문자가 섞여 나온다. 비교할 때는 대문자로 맞춘다 |
+| 구조 | `properties.getSpatialStructure(model)` | 노드 필드는 `expressID`·`type`·`children`이다. 층(IfcBuildingStorey) 아래 자손에 층 번호를 매겨 층 분리·고립에 쓴다 |
+| 속성 | `GetLine(model, id)`, `properties.getPropertySets(model, id, true)` | 값은 `{ value }` 래퍼로 온다(`line.Name.value`) |
+| 클릭 | 메시 → `Map<Mesh, expressID>` → 속성 조회 | 3D 모양과 BIM 데이터를 expressID 하나로 잇는다 |
+
+IFC를 직접 쓸 때(`ifc-writer.ts`):
+- STEP 실수에는 소수점이 반드시 있어야 한다(`3.`, `0.3`).
+- ASCII 밖 문자(한글)는 `\X2\C8FC\X0\`처럼 UTF-16 16진수 블록으로 쓴다. web-ifc가 정상으로 디코딩한다.
+- 최소 골격은 `IfcProject > IfcSite > IfcBuilding > IfcBuildingStorey`(IfcRelAggregates)이고, 부재는 `IfcRelContainedInSpatialStructure`, 공간은 층에 IfcRelAggregates로 단다.
+- 형상은 `IfcRectangleProfileDef` + `IfcExtrudedAreaSolid`가 가장 짧다. 색은 `IfcStyledItem` → `IfcSurfaceStyle` → `IfcSurfaceStyleRendering`이다.
+- 존 연결 정보는 사용자 정의 `Pset_BmsLink`(ZoneId, 온도 포인트)로 공간에 붙였다. 표준 Pset(`Pset_SpaceCommon` 등)과 나란히 둔다.
+
+web-ifc는 JS 3.6MB + WASM 1.7MB다. `import('web-ifc')` 동적 import로 나눠 IFC 화면을 열 때만 내려받게 했다. 첫 화면 번들은 three.js 본체(약 700KB) 그대로다.
+
+큰 모델로 갈 때는 해석을 Worker로 옮기고, 같은 형상(`geometryExpressID`가 같은 것)을 인스턴싱하고, That Open의 fragments 형식으로 변환해 캐시한다.
+
+## 14. 색이 하얗게 뜰 때
+
+IFC 공간을 온도로 칠했더니 전부 파스텔로 떴다. 원인은 셋이 겹친 것이었다.
+1. 반투명 공간이 다섯 층 겹치면서 밝기가 누적된다 → 강조 모드에서는 불투명으로 칠한다.
+2. 반구광·환경광·발광(emissive)이 겹친 노출 과다를 ACES 톤매핑이 눌러 채도가 빠진다 → 조명을 낮춘다.
+3. 값이 몰린 구간이 램프의 옅은 가운데 색이다 → 채도 높은 램프(`RAMPS.vivid`)를 쓰고 범위를 실제 분포에 맞춘다.
+
+## 15. 다음에 시도할 기술
 
 | 기술 | 쓰임 |
 |---|---|

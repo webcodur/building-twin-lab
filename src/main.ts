@@ -5,8 +5,9 @@ import { scanLab } from './labs/scan';
 import { planLab } from './labs/plan';
 import { envelopeLab } from './labs/envelope';
 import { portfolioLab } from './labs/portfolio';
+import { ifcLab } from './labs/ifc';
 
-const LABS: Lab[] = [twinLab, scanLab, planLab, envelopeLab, portfolioLab];
+const LABS: Lab[] = [twinLab, ifcLab, scanLab, planLab, envelopeLab, portfolioLab];
 
 const app = document.getElementById('app')!;
 const nav = document.getElementById('nav')!;

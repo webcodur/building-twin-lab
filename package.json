@@ -12,7 +12,8 @@
     "capture": "node scripts/capture.mjs"
   },
   "dependencies": {
-    "three": "0.187.0"
+    "three": "0.187.0",
+    "web-ifc": "0.0.80"
   },
   "devDependencies": {
     "@types/three": "^0.187.0",

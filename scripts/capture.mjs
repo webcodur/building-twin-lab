@@ -21,6 +21,9 @@ const drag = (x0, y0, x1, y1) => async (p) => {
 const SHOTS = [
   ['twin-explode', 'twin', [async (p) => p.getByLabel('층 분리').fill('1.2'), click('전력'), wait(2000)]],
   ['twin-select', 'twin', [click('재실'), wait(600), async (p) => p.mouse.click(640, 520), wait(1500)]],
+  ['ifc', 'ifc', [wait(2500)]],
+  ['ifc-temp', 'ifc', [wait(2500), click('존 온도'), wait(500), async (p) => p.mouse.click(560, 470), wait(1200)]],
+  ['ifc-explode', 'ifc', [wait(2500), async (p) => p.getByLabel('층 분리').fill('1.2'), click('부재 종류'), wait(1500)]],
   ['scan', 'scan', [wait(3200)]],
   ['scan-recon', 'scan', [wait(2800), click('벽 추출 실행'), click('분류'), wait(800)]],
   ['plan-drawn', 'plan', [wait(1500), click('전부 지우기'), drag(300, 260, 640, 520), drag(640, 260, 900, 520), drag(300, 520, 900, 640), wait(500)]],
@@ -37,7 +40,9 @@ const errors = [];
 page.on('console', (m) => m.type() === 'error' && errors.push(`[${page.url()}] ${m.text()}`));
 page.on('pageerror', (e) => errors.push(`[${page.url()}] ${e.message}`));
 
+const ONLY = process.argv.slice(3);
 for (const [name, hash, steps] of SHOTS) {
+  if (ONLY.length && !ONLY.includes(name)) continue;
   await page.goto(`${BASE}#/${hash}`);
   await page.reload(); // 해시만 바꾸면 이전 실험 상태가 남을 수 있어 새로 읽는다.
   for (const s of steps) await s(page);

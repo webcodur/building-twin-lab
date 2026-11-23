@@ -11,6 +11,9 @@ importers:
       three:
         specifier: 0.187.0
         version: 0.187.0
+      web-ifc:
+        specifier: 0.0.80
+        version: 0.0.80
     devDependencies:
       '@types/three':
         specifier: ^0.187.0
@@ -479,6 +482,9 @@ packages:
       yaml:
         optional: true
 
+  web-ifc@0.0.80:
+    resolution: {integrity: sha512-Tvj4nRgm3H3nQYa9mOv+7rQIPcmm+t00sGWsYoCOZ8rgR5MLJqbIFBDF7K+xuQyNQIKWzBjVRFQQDqiA5tpeRQ==}
+
 snapshots:
 
   '@dimforge/rapier3d-compat@0.12.0': {}
@@ -788,3 +794,5 @@ snapshots:
       tinyglobby: 0.2.17
     optionalDependencies:
       fsevents: 2.3.3
+
+  web-ifc@0.0.80: {}

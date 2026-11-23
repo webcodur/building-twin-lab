@@ -477,3 +477,74 @@ a {
   font-weight: 500;
   color: #cbd5e1;
 }
+.timerow {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.timerow .row {
+  grid-template-columns: 1fr auto;
+  margin: 0;
+}
+.timerow .row > span {
+  display: none;
+}
+.timerow .play {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #16203a;
+  color: var(--text);
+  cursor: pointer;
+}
+.timerow .play:hover {
+  border-color: var(--accent);
+  background: #1d3a5f;
+}
+.timerow .clock {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.tree details {
+  margin: 2px 0;
+}
+.tree summary {
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+.tree summary:hover,
+.tree .leaf:hover {
+  background: #16203a;
+  color: #fff;
+}
+.tree .leaf {
+  cursor: pointer;
+  padding: 3px 6px 3px 22px;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.pset {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0b1222;
+}
+.pset-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin-bottom: 4px;
+}
+.pset .kv {
+  font-size: 12px;
+}
+.mono {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 11px;
+}
