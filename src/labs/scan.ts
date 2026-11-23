@@ -270,15 +270,23 @@ type Wall = { a: [number, number]; b: [number, number]; doors?: Array<[number, n
 const H = 2.7;
 
 function syntheticApartment(): Cloud {
+  // 시드를 고정해 열 때마다 같은 스캔·같은 추출 결과가 나오게 한다.
+  let seed = 20261123;
+  const rnd = () => {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
   const pos: number[] = [];
   const col: number[] = [];
   const c = new THREE.Color();
   const density = 420; // 점/㎡
-  const jitter = () => (Math.random() - 0.5) * 0.012;
+  const jitter = () => (rnd() - 0.5) * 0.012;
   const push = (x: number, y: number, z: number, hex: number, v = 0.06) => {
     pos.push(x - 6 + jitter(), y + jitter(), z - 5 + jitter());
     c.setHex(hex);
-    const k = 1 + (Math.random() - 0.5) * v * 2;
+    const k = 1 + (rnd() - 0.5) * v * 2;
     col.push(c.r * k, c.g * k, c.b * k);
   };
 
@@ -303,8 +311,8 @@ function syntheticApartment(): Cloud {
     const n = Math.round(len * H * density);
     const faces = w.both ? [-0.06, 0.06] : [0];
     for (let i = 0; i < n; i++) {
-      const t = Math.random() * len;
-      const y = Math.random() * H;
+      const t = rnd() * len;
+      const y = rnd() * H;
       if (w.doors?.some(([s, e]) => t > s && t < e && y < 2.1)) continue;
       if (w.windows?.some(([s, e]) => t > s && t < e && y > 0.9 && y < 2.1)) continue;
       const off = faces[i % faces.length];
@@ -315,8 +323,8 @@ function syntheticApartment(): Cloud {
   const inside = (x: number, z: number) => !(x > 7 && z > 6);
   const area = 12 * 10;
   for (let i = 0; i < area * density; i++) {
-    const x = Math.random() * 12;
-    const z = Math.random() * 10;
+    const x = rnd() * 12;
+    const z = rnd() * 10;
     if (!inside(x, z)) continue;
     push(x, 0, z, 0x9a6b43, 0.12); // 마루
     if (i % 2 === 0) push(x, H, z, 0xf1f1ee); // 천장은 절반 밀도
@@ -332,11 +340,11 @@ function syntheticApartment(): Cloud {
   ];
   for (const [x0, z0, x1, z1, h, hex] of boxes) {
     const top = (x1 - x0) * (z1 - z0);
-    for (let i = 0; i < top * density; i++) push(x0 + Math.random() * (x1 - x0), h, z0 + Math.random() * (z1 - z0), hex);
+    for (let i = 0; i < top * density; i++) push(x0 + rnd() * (x1 - x0), h, z0 + rnd() * (z1 - z0), hex);
     const sides = 2 * ((x1 - x0) + (z1 - z0)) * h;
     for (let i = 0; i < sides * density; i++) {
-      const y = Math.random() * h;
-      const r = Math.random() * 2 * ((x1 - x0) + (z1 - z0));
+      const y = rnd() * h;
+      const r = rnd() * 2 * ((x1 - x0) + (z1 - z0));
       const wx = x1 - x0;
       const wz = z1 - z0;
       if (r < wx) push(x0 + r, y, z0, hex);
