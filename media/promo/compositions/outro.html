@@ -1,0 +1,76 @@
+<template>
+  <style>
+    @font-face {
+      font-family: 'Pretendard';
+      src: url('assets/fonts/PretendardVariable.woff2') format('woff2');
+      font-weight: 100 900;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: 'Pretendard';
+      color: #e5ecf7;
+    }
+    #outro-mark {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 330px;
+      text-align: center;
+      font-size: 132px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+    }
+    #outro-mark span {
+      display: inline-block;
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      padding: 0 12px;
+    }
+    #outro-cmd {
+      position: absolute;
+      left: 50%;
+      top: 560px;
+      width: 820px;
+      margin-left: -410px;
+      text-align: center;
+      font-family: 'JetBrains Mono';
+      font-size: 38px;
+      padding: 22px 0;
+      border-radius: 16px;
+      border: 1px solid #2c3a63;
+      background: rgba(10, 16, 32, 0.9);
+      color: #7dd3fc;
+    }
+    #outro-cmd b {
+      color: #8796b3;
+      font-weight: 400;
+    }
+    #outro-tag {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 700px;
+      text-align: center;
+      font-size: 34px;
+      font-weight: 500;
+      color: #8796b3;
+    }
+  </style>
+  <div id="root" data-composition-id="outro" data-width="1920" data-height="1080">
+    <div id="outro-wrap" class="clip" data-start="0" data-duration="3.4">
+      <div id="outro-mark"><span id="outro-mark-text">Building Twin Lab</span></div>
+      <div id="outro-cmd"><b>$</b> pnpm install &amp;&amp; pnpm dev</div>
+      <div id="outro-tag">가상 데이터 · PoC로 옮겨 쓰는 three.js 코드와 연구 노트</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#outro-mark-text', { opacity: 0, scale: 0.86, filter: 'blur(10px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power4.out' }, 0.05);
+    tl.fromTo('#outro-cmd', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 0.45);
+    tl.fromTo('#outro-tag', { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.55);
+    window.__timelines['outro'] = tl;
+  </script>
+</template>

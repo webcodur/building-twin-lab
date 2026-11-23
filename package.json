@@ -1,0 +1,23 @@
+{
+  "name": "building-twin-lab",
+  "private": true,
+  "version": "0.1.0",
+  "description": "스마트 건물관리 PoC를 위한 WebGL·Three.js 연구 실험실",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5180",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 5181",
+    "typecheck": "tsc --noEmit",
+    "capture": "node scripts/capture.mjs"
+  },
+  "dependencies": {
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.187.0",
+    "playwright": "^1.65.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

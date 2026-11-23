@@ -1,0 +1,109 @@
+<template>
+  <style>
+    @font-face {
+      font-family: 'Pretendard';
+      src: url('assets/fonts/PretendardVariable.woff2') format('woff2');
+      font-weight: 100 900;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: 'Pretendard';
+      color: #e5ecf7;
+    }
+    #lab5-frame {
+      position: absolute;
+      left: 72px;
+      top: 135px;
+      width: 1440px;
+      height: 810px;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6), 0 0 0 1px #24314f;
+      transform-origin: 45% 55%;
+    }
+    #lab5-video {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1440px;
+      height: 810px;
+      object-fit: cover;
+    }
+    #lab5-side {
+      position: absolute;
+      left: 1560px;
+      top: 210px;
+      width: 310px;
+    }
+    #lab5-num {
+      font-size: 30px;
+      font-weight: 800;
+      color: #38bdf8;
+      letter-spacing: 0.08em;
+    }
+    #lab5-tag {
+      display: inline-block;
+      margin-top: 22px;
+      font-size: 28px;
+      font-weight: 600;
+      color: #c4b5fd;
+      padding: 6px 16px;
+      border: 1px solid #4c3d85;
+      border-radius: 99px;
+    }
+    #lab5-title {
+      margin-top: 22px;
+      font-size: 50px;
+      font-weight: 800;
+      line-height: 1.22;
+      letter-spacing: -0.03em;
+      word-break: keep-all;
+    }
+    #lab5-metric {
+      margin-top: 56px;
+      padding-top: 26px;
+      border-top: 1px solid #24314f;
+    }
+    #lab5-metric-value {
+      font-size: 64px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.1;
+    }
+    #lab5-metric-label {
+      margin-top: 10px;
+      font-size: 29px;
+      color: #8796b3;
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+  </style>
+  <div id="root" data-composition-id="lab5" data-width="1920" data-height="1080">
+    <div id="lab5-frame">
+      <video id="lab5-video" class="clip" data-start="0" data-duration="2.8" data-media-start="0.6" data-playback-rate="1.75" data-track-index="0" muted playsinline src="assets/clips/portfolio.mp4"></video>
+    </div>
+    <div id="lab5-side" class="clip" data-start="0" data-duration="2.8" data-track-index="1">
+      <div id="lab5-num">05 / 05</div>
+      <div id="lab5-tag">확장성</div>
+      <div id="lab5-title">포트폴리오·도시 규모</div>
+      <div id="lab5-metric">
+        <div id="lab5-metric-value">2 draw calls</div>
+        <div id="lab5-metric-label">건물 2만 동을 인스턴싱 한 번으로</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#lab5-frame', { opacity: 0, x: 80, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.4, ease: 'power3.out' }, 0);
+    tl.fromTo('#lab5-frame', { scale: 1 }, { scale: 1.035, duration: 2.2, ease: 'none', immediateRender: false }, 0.4);
+    tl.fromTo('#lab5-side > *', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out', stagger: 0.07 }, 0.12);
+    tl.to('#lab5-frame', { opacity: 0, x: -60, duration: 0.18, ease: 'power2.in' }, 2.6);
+    tl.to('#lab5-side > *', { opacity: 0, duration: 0.15, ease: 'power2.in' }, 2.62);
+    window.__timelines['lab5'] = tl;
+  </script>
+</template>

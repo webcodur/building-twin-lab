@@ -1,0 +1,95 @@
+<template>
+  <style>
+    @font-face {
+      font-family: 'Pretendard';
+      src: url('assets/fonts/PretendardVariable.woff2') format('woff2');
+      font-weight: 100 900;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: 'Pretendard';
+      color: #e5ecf7;
+    }
+    #intro-kicker {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 300px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: #8796b3;
+    }
+    #intro-mark {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 370px;
+      text-align: center;
+      font-size: 168px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.1;
+    }
+    #intro-mark span {
+      display: inline-block;
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      padding: 0 12px;
+    }
+    #intro-sub {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 600px;
+      text-align: center;
+      font-size: 44px;
+      font-weight: 600;
+    }
+    #intro-chips {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 720px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    #intro-chips div {
+      font-size: 29px;
+      font-weight: 600;
+      color: #c7d2fe;
+      padding: 10px 22px;
+      border: 1px solid #2c3a63;
+      border-radius: 99px;
+      background: rgba(15, 22, 40, 0.8);
+    }
+  </style>
+  <div id="root" data-composition-id="intro" data-width="1920" data-height="1080">
+    <div id="intro-wrap" class="clip" data-start="0" data-duration="2.6">
+      <div id="intro-kicker">WEBGL · THREE.JS 연구 실험실</div>
+      <div id="intro-mark"><span id="intro-mark-text">Building Twin Lab</span></div>
+      <div id="intro-sub">스마트 건물관리 PoC를 위한 다섯 가지 3D 실험</div>
+      <div id="intro-chips">
+        <div id="intro-chip1">디지털 트윈</div>
+        <div id="intro-chip2">점군 → 벽체</div>
+        <div id="intro-chip3">도면 → 3D</div>
+        <div id="intro-chip4">외피 진단</div>
+        <div id="intro-chip5">도시 규모</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#intro-mark-text', { scale: 1.06, filter: 'brightness(1.6)' }, { scale: 1, filter: 'brightness(1)', duration: 0.9, ease: 'power3.out' }, 0);
+    tl.fromTo('#intro-kicker', { opacity: 0.35, y: 12 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0);
+    tl.fromTo('#intro-sub', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 0.2);
+    tl.fromTo('#intro-chips div', { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: 'back.out(2)', stagger: 0.07 }, 0.5);
+    tl.to('#intro-wrap > *', { opacity: 0, y: -40, duration: 0.22, ease: 'power2.in', stagger: 0.02 }, 2.32);
+    window.__timelines['intro'] = tl;
+  </script>
+</template>

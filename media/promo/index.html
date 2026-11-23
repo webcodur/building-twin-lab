@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #070b16;
+        --ink: #e5ecf7;
+        --accent: #38bdf8;
+        --accent-2: #a78bfa;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      #bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(900px 600px at 15% 20%, rgba(56, 189, 248, 0.16), transparent 70%),
+          radial-gradient(900px 700px at 90% 85%, rgba(167, 139, 250, 0.16), transparent 70%),
+          var(--ground);
+      }
+      #bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1920" data-height="1080">
+      <div id="bg"><div id="bg-grid"></div></div>
+
+      <div id="intro" data-composition-id="intro" data-composition-src="compositions/intro.html" data-start="0" data-duration="2.6" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="lab1" data-composition-id="lab1" data-composition-src="compositions/lab1.html" data-start="2.6" data-duration="2.8" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="lab2" data-composition-id="lab2" data-composition-src="compositions/lab2.html" data-start="5.4" data-duration="2.8" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="lab3" data-composition-id="lab3" data-composition-src="compositions/lab3.html" data-start="8.2" data-duration="2.8" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="lab4" data-composition-id="lab4" data-composition-src="compositions/lab4.html" data-start="11" data-duration="2.8" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="lab5" data-composition-id="lab5" data-composition-src="compositions/lab5.html" data-start="13.8" data-duration="2.8" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="outro" data-composition-id="outro" data-composition-src="compositions/outro.html" data-start="16.6" data-duration="3.4" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // 배경 격자가 천천히 흘러 정지 화면처럼 보이지 않게 한다.
+      tl.fromTo('#bg-grid', { backgroundPosition: '0px 0px' }, { backgroundPosition: '-128px -64px', duration: 20, ease: 'none' }, 0);
+      window.__timelines['main'] = tl;
+    </script>
+  </body>
+</html>

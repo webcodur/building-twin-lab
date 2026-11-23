@@ -1,0 +1,479 @@
+:root {
+  --bg: #070b16;
+  --panel: #0f1628;
+  --line: #1f2a44;
+  --text: #e5ecf7;
+  --muted: #8796b3;
+  --accent: #38bdf8;
+  --accent-2: #a78bfa;
+  --warn: #f87171;
+  --ok: #4ade80;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+  font-size: 14px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 상단 막대 */
+.topbar {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--line);
+  background: #0a1020;
+}
+.brand {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+#nav {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+#nav a {
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+/* hover는 지연 없이 즉시 반응한다. */
+#nav a:hover {
+  color: var(--text);
+  background: #16203a;
+}
+#nav a.on {
+  color: var(--text);
+  background: #1b2747;
+}
+
+#app {
+  height: calc(100% - 48px);
+}
+
+/* 홈 */
+.home {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+.home h1 {
+  font-size: 36px;
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+}
+.lead {
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 720px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 16px;
+  margin-top: 36px;
+}
+.card {
+  position: relative;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(160deg, #111a31, #0b1222);
+}
+.card:hover {
+  border-color: var(--accent);
+  background: linear-gradient(160deg, #142142, #0c1528);
+}
+.card .num {
+  font-weight: 800;
+  color: var(--accent);
+  font-size: 13px;
+}
+.card .tag {
+  float: right;
+  font-size: 12px;
+  color: var(--accent-2);
+  border: 1px solid #3b2f6b;
+  border-radius: 99px;
+  padding: 2px 9px;
+}
+.card h2 {
+  font-size: 19px;
+  margin: 10px 0 8px;
+}
+.card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* 실험 골격 */
+.lab {
+  display: flex;
+  height: 100%;
+}
+.viewport {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.viewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.label-layer {
+  position: absolute;
+  inset: 0;
+}
+.side {
+  width: 340px;
+  flex: none;
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+  overflow-y: auto;
+}
+
+/* 패널 */
+.panel {
+  padding: 18px 18px 40px;
+}
+.panel h2 {
+  font-size: 17px;
+  margin: 0 0 6px;
+}
+.panel h3 {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 22px 0 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.desc,
+.muted {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.row {
+  display: grid;
+  grid-template-columns: 76px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+.row > span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.row output {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  min-width: 48px;
+  text-align: right;
+}
+.row input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+.row input[type='checkbox'] {
+  justify-self: start;
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+.row select {
+  grid-column: span 2;
+  background: #0b1222;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+.row select:hover {
+  border-color: var(--accent);
+}
+.seg {
+  grid-column: span 2;
+  display: flex;
+  background: #0b1222;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 2px;
+}
+.seg button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 4px;
+  border-radius: 7px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+}
+.seg button:hover {
+  color: var(--text);
+  background: #16203a;
+}
+.seg button.on {
+  background: #1d3a5f;
+  color: #fff;
+}
+.btn {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 9px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: #131d36;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.btn:hover {
+  border-color: var(--accent);
+  background: #172546;
+}
+.btn.primary {
+  background: linear-gradient(90deg, #0e7490, #6d28d9);
+  border: 0;
+}
+.btn.primary:hover {
+  filter: brightness(1.2);
+}
+.legend .bar {
+  height: 10px;
+  border-radius: 5px;
+}
+.legend .ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.kv {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 0;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px dashed #1a2440;
+}
+.kv > span:first-child {
+  color: var(--muted);
+}
+.kv em {
+  font-style: normal;
+  color: var(--accent);
+  font-weight: 700;
+}
+.kv.big em {
+  font-size: 20px;
+}
+.warn {
+  margin: 10px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  color: #fecaca;
+  line-height: 1.5;
+  font-size: 13px;
+}
+.spark {
+  width: 100%;
+  height: 110px;
+  margin-top: 6px;
+}
+.chart-legend {
+  display: flex;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.chart-legend span::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 3px;
+  margin-right: 4px;
+  vertical-align: middle;
+  background: currentColor;
+}
+.chart-legend .b {
+  color: #94a3b8;
+}
+.chart-legend .a {
+  color: #38bdf8;
+}
+.chart-legend .o {
+  color: #facc15;
+}
+.chart-legend .g {
+  color: #4ade80;
+}
+
+/* 하단 시간 막대 */
+.timebar {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 6px 12px;
+  padding: 12px 14px;
+  background: rgba(10, 16, 32, 0.82);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.timebar .play {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #16203a;
+  color: var(--text);
+  cursor: pointer;
+}
+.timebar .play:hover {
+  border-color: var(--accent);
+  background: #1d3a5f;
+}
+.timebar .clock {
+  font-size: 22px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  min-width: 70px;
+}
+.timebar input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+.timebar .chart-wrap {
+  grid-column: 1 / -1;
+}
+.timebar canvas {
+  width: 100%;
+  height: 74px;
+  display: block;
+}
+
+/* 3D 위 HTML 라벨 */
+.floor-tag {
+  font-weight: 800;
+  font-size: 12px;
+  color: #c7d2fe;
+  padding: 2px 7px;
+  border: 1px solid #334477;
+  border-radius: 6px;
+  background: rgba(15, 22, 40, 0.75);
+}
+.alert-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: rgba(127, 29, 29, 0.85);
+  color: #fee2e2;
+  border: 1px solid #f87171;
+  white-space: nowrap;
+}
+.alert-tag i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f87171;
+  animation: pulse 1s infinite;
+}
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 6px rgba(248, 113, 113, 0);
+    opacity: 0.4;
+  }
+}
+.tooltip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  pointer-events: none;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: rgba(8, 12, 24, 0.92);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  z-index: 5;
+  white-space: nowrap;
+}
+.hint {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  padding: 7px 11px;
+  border-radius: 9px;
+  background: rgba(10, 16, 32, 0.8);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  pointer-events: none;
+}
+.dropzone.over {
+  outline: 2px dashed var(--accent);
+  outline-offset: -10px;
+}
+.stats {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+.room-tag {
+  pointer-events: none;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 3px #000;
+  line-height: 1.3;
+}
+.room-tag small {
+  display: block;
+  font-weight: 500;
+  color: #cbd5e1;
+}
